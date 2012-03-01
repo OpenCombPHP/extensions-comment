@@ -1,0 +1,13 @@
+<Extension>
+	<name>comment</name>
+	<version>0.1</version>
+	<title>评论</title>
+	
+	<class>org.opencomb.comment.Comment</class>
+	<package folder="/class" namespace="org.opencomb.comment" />
+	
+	<template folder="/template" />
+	
+	<publicFolder folder="/public" />
+	
+</Extension>
