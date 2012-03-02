@@ -1,8 +1,7 @@
 <?php
-namespace org\opencomb\friends;
+namespace org\opencomb\Comment;
 
 use org\jecat\framework\auth\IdManager;
-
 use org\jecat\framework\db\sql\Order;
 use org\opencomb\coresystem\mvc\controller\Controller;
 
