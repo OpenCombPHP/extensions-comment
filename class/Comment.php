@@ -12,9 +12,5 @@ class Comment extends Extension
 	 */
 	public function load()
 	{
-		//评论功能
-		WeaveManager::singleton()->registerTemplate( 'oc-wonei-bridge:UserState.html', "/div@1", 'comment:TopComment.html', Patch::insertAfter ) ;
-// 		WeaveManager::singleton()->registerTemplate( 'oc-wonei-bridge:FrameView.html', "/div@1", 'comment:TopComment.html', Patch::insertAfter ) ;
-	
 	}
 }
