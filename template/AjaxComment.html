@@ -1,0 +1,30 @@
+<lib name='jquery'/>
+<script>
+jquery(function(){
+	jquery('a.ajax_comment').click(function(){
+		getComment(jquery(this));
+		
+		return false;
+	});
+	
+	function getComment(that){
+		var comment_list_field = that.parent('.ajax_comment_div').next('.ajax_comment_list');
+		jquery.ajax({
+			url: that.attr('href')+'&rspn=noframe'
+			, dataType:'html'
+			, beforeSend:function(){
+				comment_list_field.html('<div class="comment_loadding">加载中...</div>');
+			}
+			, success: function(html) {
+				comment_list_field.html(html);
+			}
+		}) ;
+	}
+});
+</script>
+<div class='ajax_comment_div'>
+	<a class='ajax_comment' href='?c=org.opencomb.comment.CommentList&tid={=$theWidget->tid()}&type={=$theWidget->type()}&pid={=$theWidget->pid()}'>{=$theWidget->text()}</a>
+</div>
+<div class='ajax_comment_list'>
+	
+</div>

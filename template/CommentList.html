@@ -1,3 +1,22 @@
-<div>commentList</div>
-
-<widget id="paginator" attr.nums="5" attr.showFirst="1" attr.showLast="1" attr.showTotal="1" attr.showPre="1" attr.showNext="1" />
+<msgqueue />
+<div>
+	<view name='createComment'/>
+</div>
+<div class='commentList'>
+	<ul>
+	<model:foreach>
+		<li>
+			<div class='comment_content'>
+				<widget new='namecard' attr.uid="{=$theModel['uid']}"  attr.uid.type='expression'/>
+			</div>
+			<div class='comment_content'>
+				{=$theModel['content']}
+			</div>
+			<widget new='AjaxComment' attr.tid="{=$theModel['service']}" attr.type='userstate'  attr.tid.type='expression'/>
+		</li>
+	<model:foreach:else/>
+		<div class='comment_havenocomment'>暂时没有评论,快抢沙发!</div>
+	</model:foreach>
+	</ul>
+	<widget id="comment_paginator" attr.nums="5" attr.showFirst="1" attr.showLast="1" attr.showTotal="1" attr.showPre="1" attr.showNext="1" />
+</div>

@@ -1,5 +1,7 @@
 <?php
-namespace org\opencomb\Comment;
+namespace org\opencomb\comment;
+
+use org\jecat\framework\auth\IdManager;
 
 use org\jecat\framework\bean\BeanFactory;
 use org\jecat\framework\mvc\view\DataExchanger;
@@ -15,6 +17,7 @@ class CreateComment extends Controller
 			'view:commentView'=>array(
 				'template'=>'comment:CreateComment.html',
 				'class'=>'form',
+				'model'=>'comment',
 				'widgets'=>array(
 					array(
 						'id'=>'comment_content',
@@ -28,6 +31,12 @@ class CreateComment extends Controller
 					),
 				),
 			),
+			'model:comment'=>array(
+				'class' => 'model' ,
+				'orm' => array(
+						'table' => 'comment:comment',
+				) ,
+			),
 		);
 	}
 
@@ -40,7 +49,7 @@ class CreateComment extends Controller
 				//登录?
 				$this->requireLogined();
 				
-				if(!$this->params->has('tid') || !$this->params->has('pid') || !$this->params->has('type') ){
+				if(!$this->params->has('tid') || !$this->params->has('type') ){
 					$this->messageQueue ()->create ( Message::error, "保存失败,没有提供完整信息" );
 					return;
 				}
@@ -53,24 +62,18 @@ class CreateComment extends Controller
 					break;
 				}
 		
-				$arrCommentBean = array(
-								'class' => 'model' ,
-								'orm' => array(
-									'table' => 'comment_comment',
-									'disableTableTrans' => true,
-								) ,
-							);
-				$aCommentModel = BeanFactory::singleton()->createBean($arrCommentBean,'comment') ;
-				
-				$this->commentView->setModel($aCommentModel);
 				$this->commentView->exchangeData ( DataExchanger::WIDGET_TO_MODEL );
 				
-				$aCommentModel->setData('pid',$this->params->get('pid'));
-				$aCommentModel->setData('tid',$this->params->get('tid'));
-				$aCommentModel->setData('type',$this->params->get('type'));
-				$aCommentModel->setData('create_time',time());
-		
-				if ($aCommentModel->save ())
+				$this->modelComment->setData('pid',0);
+				if($this->params->has('pid')){
+					$this->modelComment->setData('pid',$this->params->get('pid'));
+				}
+				$this->modelComment->setData('tid',$this->params->get('tid'));
+				$this->modelComment->setData('uid',IdManager::singleton()->currentId()->userId());
+				$this->modelComment->setData('type',$this->params->get('type'));
+				$this->modelComment->setData('create_time',time());
+				
+				if ($this->modelComment->save ())
 				{
 					$this->commentView->hideForm ();
 					$this->messageQueue ()->create ( Message::success, "保存成功" );
