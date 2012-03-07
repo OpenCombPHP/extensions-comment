@@ -34,6 +34,9 @@ class AjaxComment extends Widget {
 		if($sPid = $this->attribute('pid')){
 			$this->setPid($sPid);
 		}
+		if($sText = $this->attribute('text')){
+			$this->setText($sText);
+		}
 		
 		parent::display($aUI, $aVariables,$aDevice);
 	}

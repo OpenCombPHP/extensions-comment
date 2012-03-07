@@ -1,27 +1,4 @@
 <msgqueue />
-<script>
-jquery(function(){
-	//state提交控制
-	jquery('form.createCommentForm').on('submit',function(event){
-		var that = jquery(this);
-		jquery.ajax({
-   		    type: "POST",
-   		    url: "/?c=org.opencomb.comment.CreateComment",
-   		    data:that.serialize(),
-   		    beforeSend:function(){
-   		    	that.find('.comment_submit').val('发布中').attr('disabled','disabled');
-   		    },
-   		    success: function(html) {
-   		    	that.find('textarea').val('');
-   		    	that.find('.comment_submit').val('发布').removeAttr('disabled');
-   		    	
-   					//todo  刷新评论列表
-   		    }
-   		});
-		return false;
-	});
-});
-</script>
 <form class='createCommentForm' method="post">
 	<div class="comment_textarea">
 		<widget id="comment_content" />
