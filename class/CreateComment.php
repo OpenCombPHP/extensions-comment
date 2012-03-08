@@ -84,6 +84,13 @@ class CreateComment extends Controller
 					return;
 				}
 			} while ( 0 );
+		}else{
+			//登录?
+			if(!IdManager::singleton()->currentId()){
+				$this->commentView->variables()->set('bAllowSubmit',false) ;
+			}else{
+				$this->commentView->variables()->set('bAllowSubmit',true) ;
+			}
 		}
 	}
 }

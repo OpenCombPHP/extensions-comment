@@ -1,6 +1,7 @@
 <?php
 namespace org\opencomb\comment;
 
+use org\jecat\framework\auth\IdManager;
 use org\jecat\framework\bean\BeanFactory;
 use org\jecat\framework\message\Message;
 use org\opencomb\coresystem\mvc\controller\Controller;
@@ -29,7 +30,9 @@ class CommentList extends Controller
 			),
 			
 		);
-		if(!$this->params->has('noform')){
+		
+		//只有已登录和需要表单的情况下才显示表单
+		if(!$this->params->has('noform')){// && IdManager::singleton()->currentId()){
 			$arrBean['controllers'] = array(
 				'createComment'=>array(
 						'class'=>'org\opencomb\comment\CreateComment',
@@ -42,8 +45,6 @@ class CommentList extends Controller
 
 	public function process()
 	{
-		$this->requireLogined();
-		
 		$this->modelComment->load(
 			array(
 				$this->params->get('tid'),
