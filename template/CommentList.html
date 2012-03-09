@@ -3,20 +3,18 @@
 	<view name='createComment'/>
 </div>
 <div class='commentList'>
-	<ul>
 	<model:foreach>
-		<li cid="{=$theModel['cid']}">
-			<div class='comment_auther'>
+		<dl cid="{=$theModel['cid']}">
+			<dt class='comment_auther'>
 				<widget new='namecard' attr.uid="{=$theModel['uid']}"  attr.uid.type='expression'/>
-			</div>
-			<div class='comment_content'>
+			</dt>
+			<dd class='comment_content'>
 				{=$theModel['content']}
-			</div>
-			<widget new='AjaxComment' attr.text='回复' attr.tid="{=$theModel['tid']}"  attr.tid.type='expression' attr.type='{=$theModel["type"]}'  attr.type.type='expression' attr.pid="{=$theModel['pid']}"  attr.pid.type='expression'/>
-		</li>
+				<widget new='AjaxComment' attr.text='回复' attr.tid="{=$theModel['tid']}"  attr.tid.type='expression' attr.type='{=$theModel["type"]}'  attr.type.type='expression' attr.pid="{=$theModel['pid']}"  attr.pid.type='expression'/>
+			</dd>
+		</dl>
 	<model:foreach:else/>
 		<div class='comment_havenocomment'>暂时没有评论,快抢沙发!</div>
 	</model:foreach>
-	</ul>
 	<widget id="comment_paginator" attr.onclick='showSquareList(this.href);return false' attr.nums="5" attr.showFirst="1" attr.showLast="1" attr.showTotal="1" attr.showPre="1" attr.showNext="1" />
 </div>
