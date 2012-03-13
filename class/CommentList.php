@@ -1,8 +1,9 @@
 <?php
 namespace org\opencomb\comment;
 
+use org\jecat\framework\system\Application;
+
 use org\jecat\framework\auth\IdManager;
-use org\jecat\framework\bean\BeanFactory;
 use org\jecat\framework\message\Message;
 use org\opencomb\coresystem\mvc\controller\Controller;
 
@@ -45,6 +46,10 @@ class CommentList extends Controller
 
 	public function process()
 	{
+		if(!$this->params->has('tid')){
+			$this->messageQueue ()->create ( Message::error, "缺少信息,无法找到评论" );
+			return;
+		}
 		$this->modelComment->load(
 			array(
 				$this->params->get('tid'),
