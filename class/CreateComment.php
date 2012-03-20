@@ -44,16 +44,22 @@ class CreateComment extends Controller
 	{
 		if ($this->commentView->isSubmit ( $this->params ))
 		{
+			//登录?
+			$aId = $this->requireLogined();
+			
+			$this->commentView->variables()->set('bAllowSubmit',true) ;
+			
+			if(!$this->params->has('tid')
+				|| $this->params->get('tid') == '' 
+				|| !$this->params->has('type') 
+				|| $this->params->get('type') == '') 
+			{
+				$this->messageQueue ()->create ( Message::error, "保存失败,没有提供完整信息" );
+				return;
+			}
+			
 			do
 			{
-				//登录?
-				$this->requireLogined();
-				
-				if(!$this->params->has('tid') || !$this->params->has('type') ){
-					$this->messageQueue ()->create ( Message::error, "保存失败,没有提供完整信息" );
-					return;
-				}
-				
 				//加载所有控件的值
 				$this->commentView->loadWidgets ( $this->params );
 				//校验所有控件的值
@@ -86,7 +92,7 @@ class CreateComment extends Controller
 			} while ( 0 );
 		}else{
 			//登录?
-			if(!IdManager::singleton()->currentId()){
+			if(!$aId = IdManager::singleton()->currentId()){
 				$this->commentView->variables()->set('bAllowSubmit',false) ;
 			}else{
 				$this->commentView->variables()->set('bAllowSubmit',true) ;
@@ -94,4 +100,3 @@ class CreateComment extends Controller
 		}
 	}
 }
-?>
