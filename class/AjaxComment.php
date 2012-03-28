@@ -10,16 +10,6 @@ use org\jecat\framework\mvc\view\widget\Widget;
 
 class AjaxComment extends Widget {
 	public function __construct( $sId = '', $sTitle = null,  IView $aView = null) {
-		//$sTid ,$sType ,$sPid = 0,$sText = '评论' , 
-// 		if($sTid){
-// 			$this->setTid($sTid);
-// 		}
-// 		if($sType){
-// 			$this->setType($sType);
-// 		}
-// 		$this->setPid($sPid);
-// 		$this->setText($sText);
-		
 		parent::__construct ( $sId, 'comment:AjaxComment.html',$sTitle, $aView );
 	}
 	
