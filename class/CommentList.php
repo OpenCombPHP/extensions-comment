@@ -26,7 +26,7 @@ class CommentList extends Controller
 					'list'=>'true',
 					'orm' => array(
 							'table' => 'comment:comment',
-							'orderAsc'=>'create_time',
+							'orderDesc'=>'create_time',
 					) ,
 			),
 			
