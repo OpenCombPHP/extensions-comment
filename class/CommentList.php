@@ -60,7 +60,7 @@ class CommentList extends Controller
 				'type'
 			)
 		);
-		
+// 		\org\jecat\framework\db\DB::singleton()->executeLog();
 	}
 }
 ?>
