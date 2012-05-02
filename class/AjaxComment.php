@@ -24,6 +24,9 @@ class AjaxComment extends Widget {
 		if($sPid = $this->attribute('pid')){
 			$this->setPid($sPid);
 		}
+		if(($sNum = $this->attribute('num')) !== null){
+			$this->setNum($sNum);
+		}
 		if($sText = $this->attribute('text')){
 			$this->setText($sText);
 		}
@@ -74,15 +77,26 @@ class AjaxComment extends Widget {
 	}
 	
 	public function text() {
-		return $this->sText;
+		if($this->num()!==null){
+			return $this->sText . "(" . $this->num() . ($this->num()>0 ? "+" : "") . ")";
+		}else{
+			return $this->sText;
+		}
 	}
 	public function setText($sText) {
 		$this->sText = (string)$sText;
+	}
+	
+	public function num() {
+		return $this->sNum;
+	}
+	public function setNum($sNum) {
+		$this->sNum = (int)$sNum;
 	}
 	
 	private $sTid;
 	private $sType;
 	private $sPid = 0;
 	private $sText = '评论';
+	private $sNum = null;
 }
-?>
