@@ -60,6 +60,20 @@ class CommentList extends Controller
 				'type'
 			)
 		);
+		
+		//表情
+		$oFace = new \org\opencomb\userstate\FaceIcon();
+		foreach($this->modelComment->childIterator() as $k => $o)
+		{
+		    $service = $o->tid;
+    	    preg_match("/^pull\|(.*?)\|.*?\|.*/s", $service,$aService);
+    	    $service = !empty($aService[1])?$aService[1]:'wownei';
+		    $content = $oFace->changePic($o->content, $service);
+		    $o->setData('content',$content);
+		}
+		
+		
+		
 // 		\org\jecat\framework\db\DB::singleton()->executeLog();
 	}
 }
