@@ -2,7 +2,11 @@
 <Extension>
 	<name>comment</name>
 	<version>0.1</version>
-	<title>评论</title>
+	<title>用户评论</title>
+	<description>
+允许网站的用户针对网站上的内容发表评论。
+这是一个抽象的扩展，不能独立使用，可以被用于文章、图片、视频等各种用户感兴趣的内容上。
+	</description>
 	
 	<class>org.opencomb.comment.Comment</class>
 	<package folder="/class" namespace="org.opencomb.comment" />
@@ -10,5 +14,7 @@
 	<template folder="/template" />
 	
 	<publicFolder folder="/public" />
+	
+	<require type="extension" item="coresystem"><![CDATA[ >=0.1 ]]></require>
 	
 </Extension>
